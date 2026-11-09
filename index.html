@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>crowbro.dev</title>
+    <meta name="description" content="A crow on a wire at dusk. Games live here soon." />
+    <meta name="theme-color" content="#1b1838" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="scene" aria-label="A crow perched on a telephone wire at dusk">
+      <!-- The sky: stars, the moon, and hills along the horizon. -->
+      <div class="stars" aria-hidden="true"></div>
+      <div class="moon" aria-hidden="true"></div>
+      <svg class="hills" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
+        <path class="far" d="M0 140 C 180 90 300 120 460 100 C 640 78 760 130 940 108 C 1120 86 1260 120 1440 96 V220 H0 Z" />
+        <path class="near" d="M0 180 C 220 150 380 170 560 158 C 760 145 900 182 1100 166 C 1260 154 1360 170 1440 162 V220 H0 Z" />
+      </svg>
+
+      <!-- The wire, slung between two poles; it sways a little when the crow lands or leaves. -->
+      <svg class="wire" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
+        <path id="wire-path" d="M-20 30 Q 500 110 1020 30" />
+      </svg>
+
+      <!-- The crow. Click or tap it and it goes for a fly. -->
+      <button class="crow" type="button" aria-label="The crow. Tap it to send it flying.">
+        <span class="bubble" aria-hidden="true">caw!</span>
+        <svg viewBox="0 0 220 200" aria-hidden="true">
+          <defs>
+            <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2c3150" />
+              <stop offset="0.45" stop-color="#14141d" />
+              <stop offset="1" stop-color="#0b0b12" />
+            </linearGradient>
+            <linearGradient id="wingsheen" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#363d63" />
+              <stop offset="1" stop-color="#15151f" />
+            </linearGradient>
+          </defs>
+          <g class="body-group">
+            <path class="tail" d="M64 112 L 8 150 L 22 158 L 18 168 L 78 128 Z" fill="#101018" />
+            <g class="legs" stroke="#2b2b33" stroke-width="4" stroke-linecap="round" fill="none">
+              <path d="M104 136 L 100 158 M 100 158 L 92 163 M 100 158 L 108 164" />
+              <path d="M122 134 L 122 158 M 122 158 L 114 163 M 122 158 L 130 164" />
+            </g>
+            <path class="body" d="M60 112 C 58 74 120 58 152 84 C 170 100 160 132 124 140 C 96 146 64 138 60 112 Z" fill="url(#sheen)" />
+            <g class="wing">
+              <path d="M78 96 C 100 78 142 82 154 100 C 138 116 102 128 66 132 C 70 118 70 106 78 96 Z" fill="url(#wingsheen)" />
+              <path d="M84 108 C 102 104 120 104 138 106 M 80 118 C 98 116 116 116 132 114" stroke="#4a5280" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6" />
+            </g>
+            <g class="head">
+              <circle cx="158" cy="70" r="24" fill="url(#sheen)" />
+              <path class="beak-top" d="M176 64 C 190 62 202 68 210 75 L 178 77 Z" fill="#33343f" />
+              <path class="beak-low" d="M178 77 L 206 77 C 198 83 188 85 178 83 Z" fill="#26262f" />
+              <circle class="eye-white" cx="166" cy="63" r="6" fill="#f4efe2" />
+              <circle class="pupil" cx="168" cy="63" r="3.2" fill="#0b0b12" />
+              <circle cx="169.5" cy="61.5" r="1.1" fill="#fff" />
+              <rect class="lid" x="159" y="56" width="14" height="14" rx="7" fill="#17171f" />
+            </g>
+          </g>
+        </svg>
+      </button>
+
+      <header class="title">
+        <h1>crowbro<span>.dev</span></h1>
+        <p>games &amp; odd little projects · soon</p>
+      </header>
+    </main>
+    <script src="crow.js" defer></script>
+  </body>
+</html>
