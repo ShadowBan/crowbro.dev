@@ -20,7 +20,7 @@ const roids = [...document.querySelectorAll('.roid')].map((el, i) => ({
   knockSpeed: 0,
   pace: 1, // 1 is cruising; eases toward the target below
   held: false, // hovered or focused
-  heading: 0,
+  heading: Number(el.dataset.dir) < 0 ? 180 : 0, // tail trailing the right way from the very first frame
   ember: 0,
   bumped: 0,
 }));
