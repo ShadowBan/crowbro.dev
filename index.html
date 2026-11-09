@@ -22,6 +22,82 @@
         <path class="near" d="M0 180 C 220 150 380 170 560 158 C 760 145 900 182 1100 166 C 1260 154 1360 170 1440 162 V220 H0 Z" />
       </svg>
 
+      <!-- Asteroids streaking across the top of the sky, one for each game on the way.
+           asteroids.js flies them. Give one a data-href and a click goes there; until then it says "soon!".
+           data-dir: 1 flies left to right, -1 right to left. data-lane: height, as a share of the screen.
+           data-cross: seconds to cross the screen. data-start: where it starts, as a share of the width. -->
+      <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+        <defs>
+          <radialGradient id="rockfill" cx="0.72" cy="0.22" r="0.95">
+            <stop offset="0" stop-color="#a39cba" />
+            <stop offset="0.45" stop-color="#5b5476" />
+            <stop offset="1" stop-color="#211d33" />
+          </radialGradient>
+          <linearGradient id="rockrim" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffeccc" stop-opacity="0.7" />
+            <stop offset="0.45" stop-color="#ffeccc" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="tailouter">
+            <stop offset="0" stop-color="#ff6f8e" stop-opacity="0" />
+            <stop offset="1" stop-color="#ff8a70" stop-opacity="0.5" />
+          </linearGradient>
+          <linearGradient id="tailmid">
+            <stop offset="0" stop-color="#ffa86b" stop-opacity="0" />
+            <stop offset="1" stop-color="#ffc07a" stop-opacity="0.85" />
+          </linearGradient>
+          <linearGradient id="tailcore">
+            <stop offset="0" stop-color="#fff3d0" stop-opacity="0" />
+            <stop offset="1" stop-color="#fff8e6" stop-opacity="0.95" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="asteroids">
+        <button class="roid" type="button" data-href="https://idlesuits.crowbro.dev" data-dir="1" data-lane="0.14" data-cross="30" data-start="0.28" aria-label="Play IdleSuits">
+          <span class="trail" aria-hidden="true">
+            <svg viewBox="0 0 300 100" preserveAspectRatio="none">
+              <path fill="url(#tailouter)" d="M0 50 C 120 40 200 10 262 8 C 290 8 300 30 300 50 C 300 70 290 92 262 92 C 200 90 120 60 0 50 Z" />
+              <path fill="url(#tailmid)" d="M30 50 C 140 44 220 22 268 22 C 290 22 298 36 298 50 C 298 64 290 78 268 78 C 220 78 140 56 30 50 Z" />
+              <path fill="url(#tailcore)" d="M110 50 C 190 46 240 35 276 35 C 290 35 296 42 296 50 C 296 58 290 65 276 65 C 240 65 190 54 110 50 Z" />
+            </svg>
+          </span>
+          <span class="rock">
+            <svg viewBox="0 0 220 140" aria-hidden="true">
+              <path class="stone" d="M28 44 C 40 22 50 20 62 18 C 90 12 130 10 158 14 C 186 18 204 34 208 56 C 214 82 204 104 186 116 C 162 132 128 134 100 130 C 70 136 36 128 20 106 C 8 88 14 62 28 44 Z" />
+              <g class="craters">
+                <ellipse cx="44" cy="62" rx="11" ry="8" />
+                <ellipse cx="184" cy="96" rx="9" ry="6" />
+                <ellipse cx="72" cy="116" rx="7" ry="4.5" />
+                <ellipse cx="190" cy="50" rx="5" ry="3.5" />
+              </g>
+            </svg>
+            <span class="name">IdleSuits</span>
+          </span>
+          <span class="tag" aria-hidden="true">soon!</span>
+        </button>
+        <button class="roid" type="button" data-href="https://pixel-taker.crowbro.dev" data-dir="-1" data-lane="0.32" data-cross="38" data-start="0.64" aria-label="Play Pixel-Taker">
+          <span class="trail" aria-hidden="true">
+            <svg viewBox="0 0 300 100" preserveAspectRatio="none">
+              <path fill="url(#tailouter)" d="M0 50 C 120 40 200 10 262 8 C 290 8 300 30 300 50 C 300 70 290 92 262 92 C 200 90 120 60 0 50 Z" />
+              <path fill="url(#tailmid)" d="M30 50 C 140 44 220 22 268 22 C 290 22 298 36 298 50 C 298 64 290 78 268 78 C 220 78 140 56 30 50 Z" />
+              <path fill="url(#tailcore)" d="M110 50 C 190 46 240 35 276 35 C 290 35 296 42 296 50 C 296 58 290 65 276 65 C 240 65 190 54 110 50 Z" />
+            </svg>
+          </span>
+          <span class="rock">
+            <svg viewBox="0 0 220 140" aria-hidden="true">
+              <path class="stone" d="M18 56 C 24 32 44 20 62 18 C 84 14 110 22 128 16 C 140 12 150 13 158 14 C 182 16 206 30 210 58 C 214 80 212 98 196 112 C 178 128 150 128 126 134 C 96 140 56 132 34 118 C 12 104 12 76 18 56 Z" />
+              <g class="craters">
+                <ellipse cx="38" cy="96" rx="10" ry="7" />
+                <ellipse cx="190" cy="74" rx="8" ry="11" />
+                <ellipse cx="150" cy="120" rx="6" ry="4" />
+                <ellipse cx="34" cy="58" rx="4.5" ry="3.5" />
+              </g>
+            </svg>
+            <span class="name">Pixel-Taker</span>
+          </span>
+          <span class="tag" aria-hidden="true">soon!</span>
+        </button>
+      </div>
+
       <!-- The wire, slung between two poles; it sways a little when the crow lands or leaves. -->
       <svg class="wire" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
         <path id="wire-path" d="M-20 30 Q 500 110 1020 30" />
@@ -72,5 +148,6 @@
       </header>
     </main>
     <script src="crow.js" defer></script>
+    <script src="asteroids.js" defer></script>
   </body>
 </html>

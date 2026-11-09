@@ -105,6 +105,193 @@ body {
   fill: var(--hill-near);
 }
 
+/* Asteroids streaking across the top of the sky. asteroids.js sets where each one is
+   (--x, --y), which way it's heading (--heading) and its wobble (--tilt). */
+.asteroids {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.roid {
+  --rock: clamp(96px, 16vmin, 170px);
+  --x: -999px;
+  --y: 0px;
+  --heading: 0deg;
+  --tilt: 0deg;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--rock);
+  aspect-ratio: 220 / 140;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%));
+  -webkit-tap-highlight-color: transparent;
+}
+.roid:focus-visible {
+  outline: none;
+}
+.roid:focus-visible .rock {
+  outline: 2px dashed rgb(255 240 220 / 0.6);
+  outline-offset: 6px;
+  border-radius: 40%;
+}
+
+/* The trail streams out behind, pivoting on the rock's middle to trail whichever way it flies. */
+.trail {
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  width: calc(var(--rock) * 2.3);
+  height: calc(var(--rock) * 0.62);
+  margin-top: calc(var(--rock) * -0.31);
+  rotate: var(--heading);
+  transform-origin: 100% 50%;
+  opacity: 0.85;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+.trail svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: blur(1.5px);
+  transform-origin: 100% 50%;
+  animation: flicker 180ms ease-in-out infinite alternate;
+}
+@keyframes flicker {
+  to {
+    transform: scale(0.93, 1.05);
+    opacity: 0.88;
+  }
+}
+
+.rock {
+  position: absolute;
+  inset: 0;
+  rotate: var(--tilt);
+  transition: scale 300ms ease;
+}
+.rock svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 10px rgb(255 170 110 / 0.35)) drop-shadow(0 6px 10px rgb(0 0 0 / 0.35));
+  transition: filter 300ms ease;
+}
+.stone {
+  fill: url(#rockfill);
+  stroke: url(#rockrim);
+  stroke-width: 3;
+}
+.craters ellipse {
+  fill: #2a2540;
+  opacity: 0.55;
+  stroke: rgb(255 236 210 / 0.2);
+  stroke-width: 1.5;
+}
+
+/* The game's name, painted on the rock, with a warm glow. */
+.name {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding-top: 4%;
+  font-size: calc(var(--rock) * 0.125);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  color: #ffd7a3;
+  text-shadow:
+    0 1px 0 rgb(40 20 30 / 0.7),
+    0 0 8px rgb(255 180 110 / 0.45);
+  transition:
+    color 300ms ease,
+    text-shadow 300ms ease;
+}
+
+/* Hovered: it slows right down (asteroids.js), swells a little, and burns brighter. */
+.roid:hover .rock,
+.roid:focus-visible .rock {
+  scale: 1.08;
+}
+.roid:hover .trail,
+.roid:focus-visible .trail {
+  opacity: 1;
+}
+.roid:hover .rock svg,
+.roid:focus-visible .rock svg {
+  filter: drop-shadow(0 0 16px rgb(255 190 130 / 0.6)) drop-shadow(0 6px 10px rgb(0 0 0 / 0.35));
+}
+.roid:hover .name,
+.roid:focus-visible .name {
+  color: #fff1dc;
+  text-shadow:
+    0 1px 0 rgb(40 20 30 / 0.7),
+    0 0 10px rgb(255 190 120 / 0.9),
+    0 0 26px rgb(255 160 90 / 0.55);
+}
+
+/* Clicked, or knocked by the crow: it tumbles end over end. */
+.roid.spin .rock {
+  animation: tumble 800ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+@keyframes tumble {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* "soon!", popping out under the rock, like the crow's caw. */
+.tag {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #241a3a;
+  font: 700 clamp(13px, 2.3vmin, 18px) / 1.2 'Fredoka', system-ui, sans-serif;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+.roid.soon .tag {
+  animation: caw 1.5s ease-out;
+}
+
+/* Embers shed from the tail, and the burst when one is clicked. */
+.spark {
+  position: absolute;
+  width: var(--s, 3px);
+  height: var(--s, 3px);
+  margin: calc(var(--s, 3px) / -2);
+  border-radius: 50%;
+  background: #ffe2b0;
+  box-shadow: 0 0 6px 1px rgb(255 160 100 / 0.8);
+  pointer-events: none;
+  animation: ember var(--life, 900ms) ease-out forwards;
+}
+@keyframes ember {
+  to {
+    opacity: 0;
+    transform: translate(var(--dx, 0px), var(--dy, 0px)) scale(0.3);
+  }
+}
+
 /* The wire, slung across the whole scene. */
 .wire {
   position: absolute;
@@ -325,7 +512,9 @@ body {
   .body-group,
   .head,
   .stars i,
-  .wire.twang {
+  .wire.twang,
+  .trail svg,
+  .roid.spin .rock {
     animation: none;
   }
 }
